@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduStream – Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo">🎓</span>
+      <h1>EduStream</h1>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      <button id="cartBtn" class="pill">🛒 Cart <span id="cartCount">0</span></button>
+      <button id="authBtn" class="pill">🔐 Login</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="gallery">Media Gallery</button>
+    <button class="tab" data-tab="courses">Courses</button>
+    <button class="tab" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="account">Account</button>
+  </nav>
+
+  <main>
+    <!-- Gallery -->
+    <section id="gallery" class="tab-panel active">
+      <h2>Media Gallery & Playback</h2>
+      <div class="grid gallery-grid" id="mediaGrid">
+        <!-- Cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- Courses -->
+    <section id="courses" class="tab-panel">
+      <h2>Available Courses</h2>
+      <div id="courseList" class="grid course-grid"></div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="tab-panel">
+      <h2>Your Dashboard</h2>
+      <div class="grid dash-grid">
+        <div class="card">
+          <h3>Weekly Study Minutes</h3>
+          <canvas id="barChart" width="600" height="300" aria-label="Weekly study minutes"></canvas>
+        </div>
+        <div class="card">
+          <h3>Content Mix</h3>
+          <canvas id="pieChart" width="300" height="300" aria-label="Content mix"></canvas>
+        </div>
+        <div class="card full">
+          <h3>Overall Progress</h3>
+          <canvas id="lineChart" width="900" height="260" aria-label="Course progress over time"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Account -->
+    <section id="account" class="tab-panel">
+      <div class="split">
+        <div class="card">
+          <h2>Create Account</h2>
+          <form id="signupForm" novalidate>
+            <label>
+              Full name
+              <input type="text" name="name" id="suName" required minlength="2" placeholder="Ada Lovelace"/>
+              <small class="error"></small>
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" id="suEmail" required placeholder="you@edustream.io"/>
+              <small class="error"></small>
+            </label>
+            <label>
+              Password
+              <input type="password" name="password" id="suPassword" required minlength="8"
+                     pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).+"
+                     placeholder="••••••••"/>
+              <small class="hint">At least 8 chars with upper, lower, and a digit.</small>
+              <small class="error"></small>
+            </label>
+            <button type="submit" class="primary">Create Account</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>Quick Quiz (Real-time Validation)</h2>
+          <form id="quizForm" novalidate>
+            <label>
+              What does HTML stand for?
+              <input type="text" required pattern=".*(Hyper).*" placeholder="e.g., HyperText Markup Language"/>
+              <small class="error"></small>
+            </label>
+            <label>
+              2 + 2 = ?
+              <input type="number" required min="4" max="4" placeholder="4"/>
+              <small class="error"></small>
+            </label>
+            <button type="submit" class="primary">Submit Quiz</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Modal -->
+  <dialog id="cartModal">
+    <form method="dialog" class="modal">
+      <div class="modal-header">
+        <h3>Your Cart</h3>
+        <button value="close" class="icon">✖</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-footer">
+        <div class="total">Total: $<span id="cartTotal">0.00</span></div>
+        <div class="actions">
+          <button id="checkoutBtn" class="primary">Checkout</button>
+          <button value="close">Close</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Login Modal -->
+  <dialog id="loginModal">
+    <form id="loginForm" class="modal" method="dialog" novalidate>
+      <div class="modal-header">
+        <h3>Login</h3>
+        <button value="close" class="icon">✖</button>
+      </div>
+      <label>
+        Email
+        <input type="email" name="email" required placeholder="you@edustream.io" />
+        <small class="error"></small>
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required minlength="6" placeholder="Your password" />
+        <small class="error"></small>
+      </label>
+      <div class="actions">
+        <button class="primary" id="doLogin">Login</button>
+        <button value="close">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="app-footer">
+    <small>© 2025 EduStream • Demo prototype</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
